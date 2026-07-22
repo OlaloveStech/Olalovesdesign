@@ -29,16 +29,69 @@ window.addEventListener("load", () => {
 /*=========================================
 CURSOR GLOW
 =========================================*/
+/* =========================================
+CUSTOM CURSOR
+========================================= */
 
-const glow = document.querySelector(".cursor-glow");
+const dot = document.querySelector('.cursor-dot');
+const ring = document.querySelector('.cursor-ring');
+const glow = document.querySelector('.cursor-glow');
 
-window.addEventListener("mousemove", (e) => {
+let mouseX = 0;
+let mouseY = 0;
 
-    glow.style.left = e.clientX + "px";
-    glow.style.top = e.clientY + "px";
+let ringX = 0;
+let ringY = 0;
+
+// Track mouse
+window.addEventListener('mousemove', (e) => {
+
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Dot follows instantly
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+
+    // Glow follows too
+    glow.style.left = mouseX + 'px';
+    glow.style.top = mouseY + 'px';
 
 });
 
+// Smooth trailing ring
+function animateRing(){
+
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+
+    requestAnimationFrame(animateRing);
+}
+
+animateRing();
+
+/* =========================================
+HOVER INTERACTION
+========================================= */
+
+const hoverTargets = document.querySelectorAll(
+    'a, button, .project-card, .service-card'
+);
+
+hoverTargets.forEach(el => {
+
+    el.addEventListener('mouseenter', () => {
+        ring.classList.add('hover');
+    });
+
+    el.addEventListener('mouseleave', () => {
+        ring.classList.remove('hover');
+    });
+
+});
 /*=========================================
 MOBILE MENU
 =========================================*/
@@ -376,6 +429,287 @@ const testimonialSwiper = new Swiper(".testimonialSwiper",{
             slidesPerView:1,
 
         }
+
+    }
+
+});
+/*=========================================
+PORTFOLIO DATA
+=========================================*/
+
+const collections = {
+
+    branding: [
+
+        {
+            image: "images/branding/prime.jpg",
+            title: "Prime Essentials",
+            category: "Brand Identity",
+            description: "A complete branding system developed for Prime Essentials including logo design, packaging, stationery, mockups and digital assets.",
+            client: "Prime Essentials",
+            services: "Logo Design, Brand Identity, Packaging",
+            software: "Illustrator • Photoshop"
+        },
+
+        {
+            image: "images/branding/luxury.jpg",
+            title: "Luxury Brand",
+            category: "Brand Identity",
+            description: "Minimal luxury branding focused on elegance and premium positioning.",
+            client: "Confidential",
+            services: "Brand Identity",
+            software: "Illustrator"
+        }
+
+    ],
+
+    social: [
+
+        {
+            image:"images/social/social1.jpg",
+            title:"Instagram Campaign",
+            category:"Social Media",
+            description:"Promotional campaign for product awareness.",
+            client:"XYZ",
+            services:"Social Media Design",
+            software:"Photoshop"
+        }
+
+    ],
+
+    flyers:[
+
+    ],
+
+    sports:[
+
+    ],
+
+    music:[
+
+    ],
+
+    thumbnails:[
+
+    ]
+
+};
+
+/*=========================================
+ELEMENTS
+=========================================*/
+
+const collectionCards = document.querySelectorAll(".collection-card");
+
+const galleryModal = document.querySelector(".gallery-modal");
+
+const projectModal = document.querySelector(".project-modal");
+
+const galleryGrid = document.getElementById("galleryGrid");
+
+const galleryTitle = document.getElementById("galleryTitle");
+
+const galleryCount = document.getElementById("galleryCount");
+
+const closeGallery = document.querySelector(".close-gallery");
+
+const closeProject = document.querySelector(".close-project");
+
+const projectImage = document.getElementById("projectImage");
+
+const projectTitle = document.getElementById("projectTitle");
+
+const projectCategory = document.getElementById("projectCategory");
+
+const projectDescription = document.getElementById("projectDescription");
+
+const projectClient = document.getElementById("projectClient");
+
+const projectServices = document.getElementById("projectServices");
+
+const projectSoftware = document.getElementById("projectSoftware");
+
+const prevBtn = document.getElementById("prevProject");
+
+const nextBtn = document.getElementById("nextProject");
+
+/*=========================================
+STATE
+=========================================*/
+
+let currentCollection = [];
+
+let currentIndex = 0;
+
+/*=========================================
+OPEN COLLECTION
+=========================================*/
+
+collectionCards.forEach(card=>{
+
+    card.addEventListener("click",()=>{
+
+        const category = card.dataset.collection;
+
+        currentCollection = collections[category];
+
+        galleryTitle.textContent =
+            card.querySelector("h3").textContent;
+
+        galleryCount.textContent =
+            `${currentCollection.length} Projects`;
+
+        galleryGrid.innerHTML = "";
+
+        currentCollection.forEach((project,index)=>{
+
+            const img = document.createElement("img");
+
+            img.src = project.image;
+
+            img.alt = project.title;
+
+            img.dataset.index = index;
+
+            img.addEventListener("click",()=>{
+
+                openProject(index);
+
+            });
+
+            galleryGrid.appendChild(img);
+
+        });
+
+        galleryModal.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
+    });
+
+});
+
+/*=========================================
+OPEN PROJECT
+=========================================*/
+
+function openProject(index){
+
+    currentIndex = index;
+
+    const project = currentCollection[index];
+
+    projectImage.src = project.image;
+
+    projectTitle.textContent = project.title;
+
+    projectCategory.textContent = project.category;
+
+    projectDescription.textContent = project.description;
+
+    projectClient.textContent = project.client;
+
+    projectServices.textContent = project.services;
+
+    projectSoftware.textContent = project.software;
+
+    projectModal.classList.add("active");
+
+}
+
+/*=========================================
+NEXT
+=========================================*/
+
+nextBtn.addEventListener("click",()=>{
+
+    currentIndex++;
+
+    if(currentIndex>=currentCollection.length){
+
+        currentIndex=0;
+
+    }
+
+    openProject(currentIndex);
+
+});
+
+/*=========================================
+PREVIOUS
+=========================================*/
+
+prevBtn.addEventListener("click",()=>{
+
+    currentIndex--;
+
+    if(currentIndex<0){
+
+        currentIndex=currentCollection.length-1;
+
+    }
+
+    openProject(currentIndex);
+
+});
+
+/*=========================================
+CLOSE
+=========================================*/
+
+closeGallery.addEventListener("click",()=>{
+
+    galleryModal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+});
+
+closeProject.addEventListener("click",()=>{
+
+    projectModal.classList.remove("active");
+
+});
+
+/*=========================================
+ESC KEY
+=========================================*/
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape"){
+
+        galleryModal.classList.remove("active");
+
+        projectModal.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    }
+
+});
+
+/*=========================================
+CLICK OUTSIDE TO CLOSE
+=========================================*/
+
+galleryModal.addEventListener("click",(e)=>{
+
+    if(e.target===galleryModal){
+
+        galleryModal.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    }
+
+});
+
+projectModal.addEventListener("click",(e)=>{
+
+    if(e.target===projectModal){
+
+        projectModal.classList.remove("active");
 
     }
 
