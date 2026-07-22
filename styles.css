@@ -72,6 +72,8 @@ body{
 
 }
 
+
+
 h1,h2,h3,h4{
 
     font-family:'Space Grotesk',sans-serif;
@@ -1161,6 +1163,16 @@ COLLECTION GALLERY
 
 }
 
+.gallery-modal,
+.project-modal{
+
+    -webkit-overflow-scrolling: touch;
+
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+
+}
 /*=========================================
 PROJECT MODAL
 =========================================*/
@@ -1190,6 +1202,29 @@ PROJECT MODAL
 .project-modal.active{
 
     display:flex;
+
+}
+.project-modal{
+
+    display:flex;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+
+    transition:opacity .3s ease;
+
+}
+
+.project-modal.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+    pointer-events:auto;
 
 }
 
@@ -2119,5 +2154,69 @@ font-size:2.5rem;
 padding:35px 25px;
 
 }
+
+}
+/*=========================================
+LIGHT MODE - PROJECT MODAL
+=========================================*/
+
+body.light-mode .project-content{
+
+    background:#ffffff;
+
+    color:#111827;
+
+}
+
+body.light-mode .project-details h2{
+
+    color:#111827;
+
+}
+
+body.light-mode .project-details p{
+
+    color:#4b5563;
+
+}
+
+body.light-mode .project-details h4{
+
+    color:#111827;
+
+}
+
+body.light-mode .project-details span{
+
+    color:var(--accent);
+
+}
+
+body.light-mode .project-meta p{
+
+    color:#6b7280;
+
+}
+/*=========================================
+LIGHT MODE - GALLERY
+=========================================*/
+
+body.light-mode .gallery-content{
+
+    background:#ffffff;
+
+    color:#111827;
+
+}
+
+body.light-mode .gallery-header h2{
+
+    color:#111827;
+
+}
+
+body.light-mode .gallery-header p{
+
+    color:#6b7280;
 
 }
