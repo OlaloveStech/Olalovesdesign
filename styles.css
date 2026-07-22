@@ -547,7 +547,7 @@ HERO
 
 .hero-left h1{
 
-    font-size:clamp(3.5rem,7vw,6.5rem);
+    font-size:clamp(2.5rem,7vw,6.5rem);
 
     line-height:.95;
 
@@ -1426,10 +1426,57 @@ footer{
 }
 
 .footer-links a:hover,
-.social-links a:hover{
-    color:var(--accent);
+.social-links{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
 }
 
+.social-links a{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+    font-size:1.2rem;
+
+    transition:.35s ease;
+
+}
+
+.social-links a:hover{
+
+    background:var(--accent);
+
+    color:#fff;
+
+    transform:translateY(-6px) scale(1.08);
+
+    box-shadow:0 15px 35px rgba(124,92,255,.35);
+
+}
 .footer-content p{
     color:var(--muted);
     text-align:center;
