@@ -123,12 +123,9 @@ THEME TOGGLE
 
 const themeBtn = document.querySelector(".theme-toggle");
 
-if(localStorage.getItem("theme") === "light"){
-
-    document.body.classList.add("light-mode");
-    themeBtn.innerHTML = "🌙";
-
-}
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+});
 
 themeBtn.addEventListener("click", () => {
 

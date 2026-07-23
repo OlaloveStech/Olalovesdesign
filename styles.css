@@ -484,27 +484,40 @@ nav{
 
 .theme-toggle{
 
-    width:45px;
+    width:48px;
+    height:48px;
 
-    height:45px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
+    border:none;
     border-radius:50%;
 
-    background:var(--card);
-
-    color:var(--text);
-
-    border:1px solid var(--border);
-
+    background:rgba(255,255,255,.08);
     backdrop-filter:blur(12px);
 
-    transition:.3s;
+    color:var(--text-color);
+
+    cursor:pointer;
+
+    transition:all .3s ease;
 
 }
 
 .theme-toggle:hover{
 
     background:var(--accent);
+
+    color:#fff;
+
+    transform:rotate(180deg);
+
+}
+
+.theme-toggle i{
+
+    font-size:1.15rem;
 
 }
 
