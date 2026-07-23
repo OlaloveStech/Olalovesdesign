@@ -123,9 +123,6 @@ THEME TOGGLE
 
 const themeBtn = document.querySelector(".theme-toggle");
 
-themeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-});
 
 themeBtn.addEventListener("click", () => {
 

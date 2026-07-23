@@ -317,7 +317,7 @@ BACKGROUND
 
     pointer-events:none;
 
-    z-index:-2;
+    z-index:99997;
 
 }
 /* =========================================
@@ -346,7 +346,7 @@ body{
     border: 2px solid var(--accent);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 99998;
     transform: translate(-50%, -50%);
     transition:
         width .25s ease,
